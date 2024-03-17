@@ -7,6 +7,7 @@ import lombok.experimental.FieldNameConstants;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,10 +26,15 @@ public class Pedido {
     @ManyToOne
     private Cliente cliente;
 
-    @OneToMany
-    private List<ItemPedido> itens;
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemPedido> itens = new ArrayList<>();
 
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public void adicionarItem(ItemPedido item) {
+        item.setPedido(this);
+        this.itens.add(item);
     }
 }
