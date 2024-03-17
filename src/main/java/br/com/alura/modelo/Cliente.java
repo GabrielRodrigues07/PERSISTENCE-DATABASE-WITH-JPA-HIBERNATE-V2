@@ -1,13 +1,15 @@
 package br.com.alura.modelo;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 @Entity
 @Table(name = "clientes")
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @FieldNameConstants
 @NoArgsConstructor
 public class Cliente {

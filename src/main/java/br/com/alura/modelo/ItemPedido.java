@@ -1,15 +1,17 @@
 package br.com.alura.modelo;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "itens_pedidos")
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @FieldNameConstants
 @NoArgsConstructor
 public class ItemPedido {
@@ -21,10 +23,10 @@ public class ItemPedido {
     private BigDecimal precoUnitario;
     private Integer quantidade;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Produto produto;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Pedido pedido;
 
     public ItemPedido(Integer quantidade, Produto produto, Pedido pedido) {

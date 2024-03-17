@@ -7,11 +7,7 @@ import br.com.alura.modelo.Cliente;
 import br.com.alura.modelo.ItemPedido;
 import br.com.alura.modelo.Pedido;
 import br.com.alura.modelo.Produto;
-import br.com.alura.vo.RelatorioDeVendasVo;
 import jakarta.persistence.EntityManager;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 import static br.com.alura.testes.CadastroDeProduto.cadastrarProduto;
 import static br.com.alura.util.JPAUtil.getEntityManager;
@@ -19,6 +15,12 @@ import static br.com.alura.util.JPAUtil.getEntityManager;
 public class CadastroDePedido {
 
     public static void main(String[] args) {
+        cadastrarPedido();
+
+
+    }
+
+    public static void cadastrarPedido() {
         cadastrarProduto();
         EntityManager entityManager = getEntityManager();
 
@@ -48,16 +50,14 @@ public class CadastroDePedido {
         pedidoDao.cadastrar(pedido);
         entityManager.getTransaction().commit();
 
-        BigDecimal valorTotal = pedidoDao.valorTotalVendido();
-        System.out.println(valorTotal);
-
-        List<RelatorioDeVendasVo> relatorio = pedidoDao.relatorioDeVendas();
-
-        relatorio.forEach(System.out::println);
+//        BigDecimal valorTotal = pedidoDao.valorTotalVendido();
+//        System.out.println(valorTotal);
+//
+//        List<RelatorioDeVendasVo> relatorio = pedidoDao.relatorioDeVendas();
+//
+//        relatorio.forEach(System.out::println);
 
         entityManager.close();
-
-
     }
 
 }

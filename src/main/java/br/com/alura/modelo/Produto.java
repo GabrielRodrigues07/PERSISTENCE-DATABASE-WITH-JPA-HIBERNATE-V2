@@ -1,9 +1,7 @@
 package br.com.alura.modelo;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import java.math.BigDecimal;
@@ -11,7 +9,10 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "produtos")
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @FieldNameConstants
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class Produto {
     private BigDecimal preco;
     private LocalDate dataCadastro = LocalDate.now();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
 
     public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {

@@ -1,8 +1,7 @@
 package br.com.alura.modelo;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 import java.math.BigDecimal;
@@ -12,7 +11,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @FieldNameConstants
 @NoArgsConstructor
 public class Pedido {
@@ -24,10 +26,11 @@ public class Pedido {
     private BigDecimal valorTotal = BigDecimal.ZERO;
     private LocalDate date = LocalDate.now();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<ItemPedido> itens = new ArrayList<>();
 
     public Pedido(Cliente cliente) {

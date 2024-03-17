@@ -1,14 +1,15 @@
 package br.com.alura.modelo;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 @Entity
 @Table(name = "categorias")
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @FieldNameConstants
 @NoArgsConstructor
 @AllArgsConstructor
