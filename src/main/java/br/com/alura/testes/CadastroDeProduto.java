@@ -1,8 +1,10 @@
 package br.com.alura.testes;
 
 import br.com.alura.dao.CategoriaDao;
+import br.com.alura.dao.ClienteDao;
 import br.com.alura.dao.ProdutoDao;
 import br.com.alura.modelo.Categoria;
+import br.com.alura.modelo.Cliente;
 import br.com.alura.modelo.Produto;
 import jakarta.persistence.EntityManager;
 
@@ -39,19 +41,23 @@ public class CadastroDeProduto {
         System.out.println("Produto do produto: " + precoDoProduto);
 }
 
-    private static void cadastrarProduto() {
+    public static void  cadastrarProduto() {
         EntityManager entityManager = getEntityManager();
 
         Categoria categoria = new Categoria("CELULARES");
         Produto celular = new Produto("Redmi note 9 PRO", "Com memória de 258GB e RAM de 6GB", new BigDecimal("2000.00"), categoria);
+        Cliente cliente = new Cliente("Gabriel", "123456");
+
 
         CategoriaDao categoriaDao = new CategoriaDao(entityManager);
         ProdutoDao produtoDao = new ProdutoDao(entityManager);
+        ClienteDao clienteDao = new ClienteDao(entityManager);
 
         entityManager.getTransaction().begin();
 
         categoriaDao.cadastrar(categoria);
         produtoDao.cadastrar(celular);
+        clienteDao.cadastrar(cliente);
 
         entityManager.getTransaction().commit();
         entityManager.close();
