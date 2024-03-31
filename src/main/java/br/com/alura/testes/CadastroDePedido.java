@@ -10,6 +10,7 @@ import br.com.alura.modelo.Produto;
 import jakarta.persistence.EntityManager;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static br.com.alura.testes.CadastroDeProduto.cadastrarProduto;
 import static br.com.alura.util.JPAUtil.getEntityManager;
@@ -42,6 +43,14 @@ public class CadastroDePedido {
 
         BigDecimal valorTotal = pedidoDao.valorTotalVendido();
         System.out.println(valorTotal);
+
+        List<Object[]> relatorio = pedidoDao.relatorioDeVendas();
+
+        for (Object[] obj : relatorio) {
+            System.out.println(obj[0]);
+            System.out.println(obj[1]);
+            System.out.println(obj[2]);
+        }
         entityManager.close();
 
 
