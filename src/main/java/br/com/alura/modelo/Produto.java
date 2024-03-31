@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @FieldNameConstants
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQuery(name = "Produto.produtoPorCategoria", query = "SELECT p FROM Produto p WHERE p.categoria.nome = :nome")
 public class Produto {
 
     @Id
