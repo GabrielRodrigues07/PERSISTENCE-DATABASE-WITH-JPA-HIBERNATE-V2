@@ -45,7 +45,13 @@ public class CadastroDeProduto {
         EntityManager entityManager = getEntityManager();
 
         Categoria categoria = new Categoria("CELULARES");
+        Categoria videogames = new Categoria("VIDEOGAMES");
+        Categoria informatica = new Categoria("INFORMATICA");
+
         Produto celular = new Produto("Redmi note 9 PRO", "Com memória de 258GB e RAM de 6GB", new BigDecimal("2000.00"), categoria);
+        Produto videogame = new Produto("PS5", "Playstation 5", new BigDecimal("5000.00"), videogames);
+        Produto macbook = new Produto("Macbook", "Com memória de 258GB e RAM de 6GB", new BigDecimal("15000.00"), informatica);
+
         Cliente cliente = new Cliente("Gabriel", "123456");
 
 
@@ -56,7 +62,13 @@ public class CadastroDeProduto {
         entityManager.getTransaction().begin();
 
         categoriaDao.cadastrar(categoria);
+        categoriaDao.cadastrar(videogames);
+        categoriaDao.cadastrar(informatica);
+
         produtoDao.cadastrar(celular);
+        produtoDao.cadastrar(videogame);
+        produtoDao.cadastrar(macbook);
+
         clienteDao.cadastrar(cliente);
 
         entityManager.getTransaction().commit();
