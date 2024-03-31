@@ -33,7 +33,7 @@ public class ProdutoDao {
     }
 
     public List<Produto> buscarPorNomeDaCategoria(String nome) {
-        return entityManager.createQuery("SELECT p FROM Produto p WHERE p.categoria.nome = :nome", Produto.class)
+        return entityManager.createNamedQuery("Produto.produtoPorCategoria", Produto.class)
                 .setParameter(Produto.Fields.nome, nome)
                 .getResultList();
     }
