@@ -44,9 +44,9 @@ public class CadastroDeProduto {
     public static void  cadastrarProduto() {
         EntityManager entityManager = getEntityManager();
 
-        Categoria categoria = new Categoria("CELULARES");
-        Categoria videogames = new Categoria("VIDEOGAMES");
-        Categoria informatica = new Categoria("INFORMATICA");
+        Categoria categoria = new Categoria("CELULARES", "TESTE");
+        Categoria videogames = new Categoria("VIDEOGAMES", "TESTE");
+        Categoria informatica = new Categoria("INFORMATICA", "TESTE");
 
         Produto celular = new Produto("Redmi note 9 PRO", "Com memória de 258GB e RAM de 6GB", new BigDecimal("2000.00"), categoria);
         Produto videogame = new Produto("PS5", "Playstation 5", new BigDecimal("5000.00"), videogames);

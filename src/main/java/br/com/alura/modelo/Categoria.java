@@ -13,12 +13,13 @@ import lombok.experimental.FieldNameConstants;
 @FieldNameConstants
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(CategoriaId.class)
 public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String nome;
+    @Id
+    private String descricao;
 
     public Categoria(String nome) {
         this.nome = nome;
