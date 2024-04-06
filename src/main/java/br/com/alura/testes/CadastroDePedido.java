@@ -50,12 +50,8 @@ public class CadastroDePedido {
         pedidoDao.cadastrar(pedido);
         entityManager.getTransaction().commit();
 
-//        BigDecimal valorTotal = pedidoDao.valorTotalVendido();
-//        System.out.println(valorTotal);
-//
-//        List<RelatorioDeVendasVo> relatorio = pedidoDao.relatorioDeVendas();
-//
-//        relatorio.forEach(System.out::println);
+        Cliente cliente1 = clienteDao.buscarPorId(1L);
+        System.out.println("Cliente = " + cliente1.getNome());
 
         entityManager.close();
     }
