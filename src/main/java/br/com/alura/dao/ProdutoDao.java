@@ -3,6 +3,10 @@ package br.com.alura.dao;
 import br.com.alura.modelo.Produto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -48,28 +52,51 @@ public class ProdutoDao {
     }
 
     public List<Produto> buscarPorParametros(String nome, BigDecimal preco, LocalDate dataCadastro) {
-        String jpql = "SELECT p FROM Produto p WHERE 1=1 ";
+        StringBuilder jpql = new StringBuilder("SELECT p FROM Produto p WHERE 1=1 ");
         if (Objects.nonNull(nome) && !nome.isBlank()) {
-            jpql = "AND p.nome =:nome";
+            jpql.append("AND p.nome =:nome ");
         }
         if (Objects.nonNull(preco)) {
-            jpql = "AND p.preco =:preco";
+            jpql.append("AND p.preco =:preco ");
         }
         if (Objects.nonNull(dataCadastro)) {
-            jpql = "AND p.dataCadastro =:dataCadastro";
+            jpql.append("AND p.dataCadastro =:dataCadastro ");
         }
-        TypedQuery<Produto> query = entityManager.createQuery(jpql, Produto.class);
+
+        TypedQuery<Produto> query = entityManager.createQuery(jpql.toString(), Produto.class);
 
         if (Objects.nonNull(nome) && !nome.isBlank()) {
             query.setParameter(Produto.Fields.nome, nome);
         }
-        if (Objects.nonNull(nome) && !nome.isBlank()) {
+        if (Objects.nonNull(preco)) {
             query.setParameter(Produto.Fields.preco, preco);
         }
-        if (Objects.nonNull(nome) && !nome.isBlank()) {
+        if (Objects.nonNull(dataCadastro)) {
             query.setParameter(Produto.Fields.dataCadastro, dataCadastro);
         }
 
         return query.getResultList();
+    }
+
+    public List<Produto> buscarPorParametrosComCriteria(String nome, BigDecimal preco, LocalDate dataCadastro) {
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
+        Root<Produto> from = query.from(Produto.class);
+
+        Predicate filtros = builder.and();
+
+        if (Objects.nonNull(nome) && !nome.isBlank()) {
+            filtros = builder.and(filtros, builder.equal(from.get(Produto.Fields.nome), nome));
+        }
+        if (Objects.nonNull(preco)) {
+            filtros = builder.and(filtros, builder.equal(from.get(Produto.Fields.preco), preco));
+        }
+        if (Objects.nonNull(dataCadastro)) {
+            filtros = builder.and(filtros, builder.equal(from.get(Produto.Fields.dataCadastro), dataCadastro));
+        }
+
+        query.where(filtros);
+        return entityManager.createQuery(query).getResultList();
     }
 }
